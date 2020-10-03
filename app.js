@@ -13,6 +13,31 @@ const render = require("./lib/htmlRenderer");
 const teamMembers = [];
 const idArray = [];
 
+function mainMenu(){
+    function createManager(){
+        console.log("Please build your team")
+        inquirer.prompt([{
+            type: "input",
+            name: "managerName",
+            message: "What is your manager's name?",
+            validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter a name"
+            }
+        }]).then(answer => {
+            const manager = new Manager(answer.id)
+            teamMembers.push(manager)
+            idArray.push(answer.managerId)
+
+            // call function that is defined outside & call more inquirer prompts
+            // are we going to end or create another person
+        }) 
+    }
+    createManager();
+}
+mainMenu()
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
