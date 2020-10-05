@@ -20,22 +20,78 @@ function mainMenu(){
             type: "input",
             name: "managerName",
             message: "What is your manager's name?",
+             validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter a name"}
+        },
+        {
+            type: "number",
+            name: "managerID",
+            message: "What is your manager's ID?",
+             validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter an ID"}
+                
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is your manager's email?",
             validate: answer =>{
                 if(answer !==""){
                     return true;
                 }
-                return "Please enter a name"
-            }
-        }]).then(answer => {
-            const manager = new Manager(answer.id)
-            teamMembers.push(manager)
-            idArray.push(answer.managerId)
+                return "Please enter an email"}
+        },
+        {
+            type: "input",
+            name: "managerNumber",
+            message: "What is your manager's office number?",
+            validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter a phone number"}
+        }
 
-            // call function that is defined outside & call more inquirer prompts
-            // are we going to end or create another person
+        ]).then(answers => {
+            const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber)
+            teamMembers.push(manager)
+            idArray.push(answers.managerID)
+            console.log(teamMembers)
+            
+            addTeamMember();
         }) 
     }
     createManager();
+
+    function createEngineer(){
+
+    }
+
+    function addTeamMember(){
+        inquirer.prompt([{
+            type: "list",
+            name: "memberType",
+            message: "Which type of team member would you like to add?",
+            choices: ['Engineer',
+                "Intern",
+                "I don't want to add anymore team memebers"]
+            }
+            ]).then(answers => {
+                if (answers.memberType === "Engineer")
+                    {createEngineer();}
+                if (answers.memberType === "Intern")
+                    {createIntern();}
+                else{
+                // call render function
+                }
+            })
+    }
 }
 mainMenu()
 
