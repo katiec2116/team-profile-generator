@@ -73,7 +73,25 @@ function mainMenu(){
 
     }
 
-    
+    function addTeamMember(){
+        inquirer.prompt([{
+            type: "list",
+            name: "memberType",
+            message: "Which type of team member would you like to add?",
+            choices: ['Engineer',
+                "Intern",
+                "I don't want to add anymore team memebers"]
+            }
+            ]).then(answers => {
+                if (answers.memberType === "Engineer")
+                    {createEngineer();}
+                if (answers.memberType === "Intern")
+                    {createIntern();}
+                else{
+                // call render function
+                }
+            })
+    } 
 }
 mainMenu()
 
