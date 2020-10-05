@@ -28,14 +28,15 @@ function mainMenu() {
             }
         },
         {
-            type: "number",
+            type: "numbinputer",
             name: "managerID",
             message: "What is your manager's ID?",
             validate: answer => {
-                if (answer !== ""&& typeof answer !== NaN) {
+                if (parseInt(answer) > 0 && idArray.includes(answer) == false) {
+                    idArray.push(answer)
                     return true;
                 }
-                return "Please enter an ID"
+                return "Please enter a valid ID"
             }
 
         },
@@ -90,7 +91,8 @@ function mainMenu() {
             name: "engineerID",
             message: "What is the engineer's ID?",
             validate: answer => {
-                if (answer !== "") {
+                if (parseInt(answer) > 0 && idArray.includes(answer) == false) {
+                    idArray.push(answer)
                     return true;
                 }
                 return "Please enter an ID"
@@ -146,7 +148,8 @@ function mainMenu() {
             name: "internID",
             message: "What is the intern's ID?",
             validate: answer => {
-                if (answer !== "") {
+                if (parseInt(answer) > 0 && idArray.includes(answer) === false) {
+                    idArray.push(answer)
                     return true;
                 }
                 return "Please enter an ID"
@@ -212,7 +215,10 @@ function mainMenu() {
     }
 
     function renderHTML(){
-    fs.writeFile(outputPath, render(teamMembers) , (err)=>{
+        if(!fs.existsSync("./output")){
+            fs.mkdirSync("./output")
+        }
+        fs.writeFile(outputPath, render(teamMembers) , (err)=>{
         if (err) throw err;
         console.log("the file was saved");
         console.log(outputPath)
