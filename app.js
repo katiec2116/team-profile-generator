@@ -28,11 +28,11 @@ function mainMenu() {
             }
         },
         {
-            type: "numbinputer",
+            type: "input",
             name: "managerID",
             message: "What is your manager's ID?",
             validate: answer => {
-                if (parseInt(answer) > 0 && idArray.includes(answer) == false) {
+                if (parseInt(answer) > 0) {
                     idArray.push(answer)
                     return true;
                 }
@@ -66,8 +66,7 @@ function mainMenu() {
         ]).then(answers => {
             const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber)
             teamMembers.push(manager)
-            idArray.push(answers.managerID)
-            console.log(teamMembers)
+            console.log(idArray)
 
             addTeamMember();
         })
@@ -87,11 +86,11 @@ function mainMenu() {
             }
         },
         {
-            type: "number",
+            type: "input",
             name: "engineerID",
             message: "What is the engineer's ID?",
             validate: answer => {
-                if (parseInt(answer) > 0 && idArray.includes(answer) == false) {
+                if (idArray.includes(answer) == false && parseInt(answer) > 0) {
                     idArray.push(answer)
                     return true;
                 }
@@ -125,8 +124,7 @@ function mainMenu() {
         ]).then(answers => {
             const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerNumber)
             teamMembers.push(engineer)
-            idArray.push(answers.engineerID)
-            console.log(teamMembers)
+            console.log(idArray)
 
             addTeamMember();
         })
@@ -144,11 +142,11 @@ function mainMenu() {
             }
         },
         {
-            type: "number",
+            type: "input",
             name: "internID",
             message: "What is the intern's ID?",
             validate: answer => {
-                if (parseInt(answer) > 0 && idArray.includes(answer) === false) {
+                if (idArray.includes(answer) == false && parseInt(answer) > 0) {
                     idArray.push(answer)
                     return true;
                 }
@@ -182,8 +180,7 @@ function mainMenu() {
         ]).then(answers => {
             const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool)
             teamMembers.push(intern)
-            idArray.push(answers.internID)
-            console.log(teamMembers)
+            console.log(idArray)
 
             addTeamMember();
         })
