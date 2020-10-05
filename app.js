@@ -70,7 +70,56 @@ function mainMenu(){
     createManager();
 
     function createEngineer(){
+        inquirer.prompt([{
+            type: "input",
+            name: "engineerName",
+            message: "What is the engineer's name?",
+             validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter a name"}
+        },
+        {
+            type: "number",
+            name: "engineerID",
+            message: "What is the engineer's ID?",
+             validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter an ID"}
+                
+        },
+        {
+            type: "input",
+            name: "engineerEmail",
+            message: "What is the engineer's email?",
+            validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter an email"}
+        },
+        {
+            type: "input",
+            name: "engineerNumber",
+            message: "What is the engineer's GitHub?",
+            validate: answer =>{
+                if(answer !==""){
+                    return true;
+                }
+                return "Please enter a phone number"}
+        }
 
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerNumber)
+            teamMembers.push(engineer)
+            idArray.push(answers.engineerID)
+            console.log(teamMembers)
+            
+            addTeamMember();
+        }) 
     }
 
     function addTeamMember(){
