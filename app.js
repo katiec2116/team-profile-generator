@@ -13,49 +13,53 @@ const render = require("./lib/htmlRenderer");
 const teamMembers = [];
 const idArray = [];
 
-function mainMenu(){
-    function createManager(){
+function mainMenu() {
+    function createManager() {
         console.log("Please build your team")
         inquirer.prompt([{
             type: "input",
             name: "managerName",
             message: "What is your manager's name?",
-             validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter a name"}
+                return "Please enter a name"
+            }
         },
         {
             type: "number",
             name: "managerID",
             message: "What is your manager's ID?",
-             validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== ""&& typeof answer !== NaN) {
                     return true;
                 }
-                return "Please enter an ID"}
-                
+                return "Please enter an ID"
+            }
+
         },
         {
             type: "input",
             name: "managerEmail",
             message: "What is your manager's email?",
-            validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter an email"}
+                return "Please enter an email"
+            }
         },
         {
             type: "input",
             name: "managerNumber",
             message: "What is your manager's office number?",
-            validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter a phone number"}
+                return "Please enter a phone number"
+            }
         }
 
         ]).then(answers => {
@@ -63,53 +67,57 @@ function mainMenu(){
             teamMembers.push(manager)
             idArray.push(answers.managerID)
             console.log(teamMembers)
-            
+
             addTeamMember();
-        }) 
+        })
     }
     createManager();
 
-    function createEngineer(){
+    function createEngineer() {
         inquirer.prompt([{
             type: "input",
             name: "engineerName",
             message: "What is the engineer's name?",
-             validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter a name"}
+                return "Please enter a name"
+            }
         },
         {
             type: "number",
             name: "engineerID",
             message: "What is the engineer's ID?",
-             validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter an ID"}
-                
+                return "Please enter an ID"
+            }
+
         },
         {
             type: "input",
             name: "engineerEmail",
             message: "What is the engineer's email?",
-            validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter an email"}
+                return "Please enter an email"
+            }
         },
         {
             type: "input",
             name: "engineerNumber",
             message: "What is the engineer's GitHub?",
-            validate: answer =>{
-                if(answer !==""){
+            validate: answer => {
+                if (answer !== "") {
                     return true;
                 }
-                return "Please enter a phone number"}
+                return "Please enter a phone number"
+            }
         }
 
         ]).then(answers => {
@@ -117,12 +125,68 @@ function mainMenu(){
             teamMembers.push(engineer)
             idArray.push(answers.engineerID)
             console.log(teamMembers)
-            
+
             addTeamMember();
-        }) 
+        })
+    }
+    function createIntern() {
+        inquirer.prompt([{
+            type: "input",
+            name: "internName",
+            message: "What is the intern's name?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+                return "Please enter a name"
+            }
+        },
+        {
+            type: "number",
+            name: "internID",
+            message: "What is the intern's ID?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+                return "Please enter an ID"
+            }
+
+        },
+        {
+            type: "input",
+            name: "internEmail",
+            message: "What is the intern's email?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+                return "Please enter an email"
+            }
+        },
+        {
+            type: "input",
+            name: "internSchool",
+            message: "What is the intern's school?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+                return "Please enter a phone number"
+            }
+        }
+
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool)
+            teamMembers.push(intern)
+            idArray.push(answers.internID)
+            console.log(teamMembers)
+
+            addTeamMember();
+        })
     }
 
-    function addTeamMember(){
+    function addTeamMember() {
         inquirer.prompt([{
             type: "list",
             name: "memberType",
@@ -130,17 +194,30 @@ function mainMenu(){
             choices: ['Engineer',
                 "Intern",
                 "I don't want to add anymore team memebers"]
+        }
+        ]).then(answers => {
+            switch (answers.memberType){
+            case "Engineer":
+                createEngineer(); 
+                break;
+            case "Intern":
+                createIntern(); 
+                break;
+            case "I don't want to add anymore team memebers":
+                renderHTML(); 
+                break;
+                // process.exit()
             }
-            ]).then(answers => {
-                if (answers.memberType === "Engineer")
-                    {createEngineer();}
-                if (answers.memberType === "Intern")
-                    {createIntern();}
-                else{
-                // call render function
-                }
-            })
-    } 
+        })
+    }
+
+    function renderHTML(){
+    fs.writeFile(outputPath, render(teamMembers) , (err)=>{
+        if (err) throw err;
+        console.log("the file was saved");
+        console.log(outputPath)
+    })
+    }
 }
 mainMenu()
 
