@@ -38,7 +38,6 @@ function mainMenu() {
                 }
                 return "Please enter a valid ID"
             }
-
         },
         {
             type: "input",
