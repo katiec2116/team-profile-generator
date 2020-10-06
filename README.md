@@ -17,7 +17,6 @@ This is a Node CLI application that takes in information about employees and gen
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
-- [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
 
