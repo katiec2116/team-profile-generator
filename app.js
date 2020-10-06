@@ -44,10 +44,10 @@ function mainMenu() {
             name: "managerEmail",
             message: "What is your manager's email?",
             validate: answer => {
-                if (answer !== "") {
+                if (answer.includes("@") && answer !== "") {
                     return true;
                 }
-                return "Please enter an email"
+                return "Please enter a valid email"
             }
         },
         {
