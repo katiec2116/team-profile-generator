@@ -65,7 +65,6 @@ function mainMenu() {
         ]).then(answers => {
             const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerNumber)
             teamMembers.push(manager)
-            console.log(idArray)
 
             addTeamMember();
         })
@@ -123,7 +122,6 @@ function mainMenu() {
         ]).then(answers => {
             const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerNumber)
             teamMembers.push(engineer)
-            console.log(idArray)
 
             addTeamMember();
         })
@@ -179,7 +177,6 @@ function mainMenu() {
         ]).then(answers => {
             const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.internSchool)
             teamMembers.push(intern)
-            console.log(idArray)
 
             addTeamMember();
         })
@@ -216,8 +213,7 @@ function mainMenu() {
         }
         fs.writeFile(outputPath, render(teamMembers) , (err)=>{
         if (err) throw err;
-        console.log("the file was saved");
-        console.log(outputPath)
+        console.log("The file was saved!");
     })
     }
 }

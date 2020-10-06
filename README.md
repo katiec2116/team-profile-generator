@@ -36,7 +36,9 @@ To install use the following command
 - Once finished, the html file will appear as **team.html** in your folder under a new folder called **output**
 - Open the file in the browser to view the team profile
 
+![](./assets/recording.gif)
 
+![](./assets/final.png)
 
 ## License
 
